@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# chkconfig: 2345 20 80
+# description: checking Service status
+# Source function library.
+. /etc/init.d/functions
+
+case "$1" in
+ start)
+  echo "$(date) service checker started" >> /var/log/checker.log
+  /opt/srv_checker.sh &
+  echo $! > /var/run/checker.pid
+  ;;
+ stop)
+  echo "$(date) service checker stopped" >> /var/log/checker.log
+  kill `cat /var/run/checker.pid`
+  rm /var/run/checker.pid
+  ;;
+ restart)
+  $0 stop
+  $0 start
+  ;;
+ status)
+  if [ -e /var/run/checker.pid ]; then
+  		echo checker is running, pid = `cat /var/run/checker.pid`
+  else
+  		echo checker is NOT running	
+  	exit 1
+  fi
+  ;;
+*)
+  echo "Usage: $0 {start|stop|status|restart}"
+  esac
+
+  exit 0
