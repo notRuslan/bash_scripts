@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Script with defence from multi run
 
-#!/usr/bin/env bash
 FILE=/tmp/$(basename $0).pid
 
 #if [ -e $FILE ]
