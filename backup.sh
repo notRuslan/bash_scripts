@@ -3,10 +3,10 @@
 
 FILE=/tmp/$(basename $0).pid
 
-#if [ -e $FILE ]
-#	then echo "$FILE exist probably the script is running"
-#		 exit 2
-#fi
+if [ -e $FILE ]
+	then echo "$FILE exist probably the script is running"
+		 exit 2
+fi
 
 
 if ( set -o noclobber; echo "$$" > "$FILE") 2> /dev/null;
